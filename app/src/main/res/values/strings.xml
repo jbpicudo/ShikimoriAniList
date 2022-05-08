@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShikimoriAniList</string>
+    <string name="randomButton">Рандом</string>
+    <string name="backButton">Назад</string>
 </resources>
