@@ -13,7 +13,7 @@ data class AnimeInfo(
     @SerializedName("description_html")
     val descriptionHtml: String,
     @SerializedName("description_source")
-    val descriptionSource: Any?,
+    val descriptionSource: Any,
     @SerializedName("duration")
     val duration: Int,
     @SerializedName("english")
@@ -49,7 +49,7 @@ data class AnimeInfo(
     @SerializedName("name")
     val name: String,
     @SerializedName("next_episode_at")
-    val nextEpisodeAt: Any?,
+    val nextEpisodeAt: Any,
     @SerializedName("ongoing")
     val ongoing: Boolean,
     @SerializedName("rates_scores_stats")

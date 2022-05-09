@@ -19,7 +19,7 @@ data class UserRate(
     @SerializedName("status")
     val status: String,
     @SerializedName("text")
-    val text: Any?,
+    val text: Any,
     @SerializedName("text_html")
     val textHtml: String,
     @SerializedName("updated_at")
