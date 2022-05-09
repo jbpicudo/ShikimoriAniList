@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">ShikimoriAniList</string>
+
     <string name="randomButton">Рандом</string>
     <string name="backButton">Назад</string>
+
+    <string name="tv">Тип: TV Сериал</string>
+    <string name="movie">Тип: Фильм</string>
+    <string name="ova">Тип: OVA</string>
+    <string name="ona">Тип: ONA</string>
+    <string name="special">Тип: Спешл</string>
+    <string name="music">Тип: Клип</string>
+
+    <string name="anons">Статус: Анонс</string>
+    <string name="ongoing">Статус: Онгоинг</string>
+    <string name="released">Статус: Вышло</string>
+
+    <string name="genre_info">Жанры:\u0020</string>
+    <string name="score_info">Оценка:\u0020</string>
+    <string name="episodes_info">Эпизоды:\u0020</string>
 </resources>
