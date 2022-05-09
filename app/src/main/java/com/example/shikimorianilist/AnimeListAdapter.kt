@@ -1,6 +1,8 @@
 package com.example.shikimorianilist
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,6 +41,13 @@ class AnimeListAdapter(private val animeItemList: MutableList<AnimeItem>) :
 
         fun bind(animeItem: AnimeItem) {
             binding.tvTitle.text = animeItem.russian
+
+            binding.constraintLayout.setOnClickListener(View.OnClickListener {
+                val intent = Intent(itemView.context, AnimeInfoActivity::class.java).apply {
+                    putExtra("animeId", animeItem.id)
+                }
+                itemView.context.startActivity(intent)
+            })
 
             Glide.with(itemView.context)
                 .load(RetrofitClient.getBaseURL() + animeItem.image.preview)
