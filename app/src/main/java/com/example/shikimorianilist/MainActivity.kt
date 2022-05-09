@@ -2,6 +2,7 @@ package com.example.shikimorianilist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.example.shikimorianilist.databinding.ActivityMainBinding
 import com.example.shikimorianilist.modelAnimeList.AnimeItem
@@ -23,9 +24,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.buttonGenerateAnime.setOnClickListener { generateRandomAnime() }
+
+        generateRandomAnime()
     }
 
     fun generateRandomAnime() {
+        binding.buttonGenerateAnime.isEnabled = false
+        binding.pbRandomAnime.visibility = View.VISIBLE
+
         RetrofitClient
             .shikimoriAPI
             .getAnimeList(1, "random")
@@ -45,10 +51,15 @@ class MainActivity : AppCompatActivity() {
                     Glide.with(this@MainActivity)
                         .load(RetrofitClient.getBaseURL() + animeItem.image.original)
                         .into(binding.ivAnimePoster)
+
+                    binding.buttonGenerateAnime.isEnabled = true
+                    binding.pbRandomAnime.visibility = View.GONE
                 }
 
                 override fun onFailure(call: Call<List<AnimeItem>?>, t: Throwable) {
                     binding.tvNameRU.text = t.toString()
+                    binding.buttonGenerateAnime.isEnabled = true
+                    binding.pbRandomAnime.visibility = View.GONE
                 }
             })
     }
