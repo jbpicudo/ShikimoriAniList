@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     fun generateRandomAnime() {
         RetrofitClient
             .shikimoriAPI
-            .getAnimeList(1)
+            .getAnimeList(1, "random")
             .enqueue(object : Callback<List<AnimeItem>?> {
                 override fun onResponse(
                     call: Call<List<AnimeItem>?>,
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
                     binding.tvNameRU.text = animeItem.russian
                     binding.tvNameJP.text = animeItem.name
-                    binding.tvKind.text = animeItem.score
+                    binding.tvScore.text = animeItem.score
                     binding.tvKind.text = animeItem.kind
                     binding.tvEpisodes.text = animeItem.episodes.toString()
 
