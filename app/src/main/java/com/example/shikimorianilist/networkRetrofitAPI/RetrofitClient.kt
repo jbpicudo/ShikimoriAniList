@@ -7,7 +7,7 @@ object RetrofitClient {
 
     private const val BASE_URL: String = "https://shikimori.one"
 
-    private val retrofit : Retrofit by lazy {
+    private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
