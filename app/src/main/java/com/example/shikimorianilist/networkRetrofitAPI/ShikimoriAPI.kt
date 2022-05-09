@@ -16,7 +16,9 @@ interface ShikimoriAPI {
     @GET("/api/animes")
     fun getAnimeList(
         @Query("limit") limit: Int,
-        @Query("order") order: String
+        @Query("order") order: String,
+        @Query("page") page: Int,
+        @Query("search") search: String
     ): Call<List<AnimeItem>>
 
 

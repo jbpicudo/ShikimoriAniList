@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         RetrofitClient
             .shikimoriAPI
-            .getAnimeList(1, "random")
+            .getAnimeList(1, "random", 1, "")
             .enqueue(object : Callback<List<AnimeItem>?> {
                 override fun onResponse(
                     call: Call<List<AnimeItem>?>,
