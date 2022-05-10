@@ -1,6 +1,9 @@
 package com.example.shikimorianilist
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +51,23 @@ class AnimeListActivity : AppCompatActivity() {
         })
 
         loadAnimeList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.toRandomAnime -> {
+                val intent = Intent(this, MainActivity::class.java)
+                this.startActivity(intent)
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     fun loadAnimeList() {
