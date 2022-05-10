@@ -31,7 +31,8 @@ class AnimeListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        var list: MutableList<AnimeItem> = arrayListOf()
+        var list: MutableList<AnimeMarker> = arrayListOf()
+        list.add(LoadingItem())
         animeListAdapter = AnimeListAdapter(list)
 
         binding.rvAnimeList.layoutManager = LinearLayoutManager(this)
@@ -79,9 +80,11 @@ class AnimeListActivity : AppCompatActivity() {
                     call: Call<List<AnimeItem>?>,
                     response: Response<List<AnimeItem>?>
                 ) {
-                    var list: MutableList<AnimeItem> = arrayListOf()
+                    var list: MutableList<AnimeMarker> = arrayListOf()
                     list.addAll(response.body()!!)
+                    list.add(LoadingItem())
 
+                    animeListAdapter.removeLoading()
                     animeListAdapter.addAnimeItem(list)
 
                     binding.tvPages.text = "Страница $page"

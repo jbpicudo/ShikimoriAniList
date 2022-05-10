@@ -1,6 +1,7 @@
 package com.example.shikimorianilist.modelAnimeList
 
 
+import com.example.shikimorianilist.AnimeMarker
 import com.google.gson.annotations.SerializedName
 
 data class AnimeItem(
@@ -28,4 +29,4 @@ data class AnimeItem(
     val status: String,
     @SerializedName("url")
     val url: String
-)
+) : AnimeMarker
