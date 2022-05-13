@@ -69,6 +69,11 @@ class AnimeListAdapter(private val animeItemList: MutableList<AnimeMarker>) :
         notifyItemRemoved(animeItemList.size)
     }
 
+    fun clearList() {
+        this.animeItemList.clear()
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(animeItemBinding: AnimeItemBinding) :
         RecyclerView.ViewHolder(animeItemBinding.root) {
 

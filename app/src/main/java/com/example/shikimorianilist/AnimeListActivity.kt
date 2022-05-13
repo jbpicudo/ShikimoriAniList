@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class AnimeListActivity : AppCompatActivity() {
     private lateinit var animeListAdapter: AnimeListAdapter
 
     var page: Int = 1
+    var searchText: String = ""
     var isLoading: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +53,30 @@ class AnimeListActivity : AppCompatActivity() {
             }
         })
 
-        loadAnimeList()
+        loadNewAnimeList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
+
+        val searchMenuItem: MenuItem = menu!!.findItem(R.id.nav_seach)
+
+        val searchView: SearchView = searchMenuItem.actionView as SearchView
+        searchView.queryHint = "Введите название"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                searchText = p0!!
+                page = 1
+                loadNewAnimeList()
+
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -74,7 +95,7 @@ class AnimeListActivity : AppCompatActivity() {
     fun loadAnimeList() {
         isLoading = true
 
-        RetrofitClient.shikimoriAPI.getAnimeList(20, "ranked", page, "")
+        RetrofitClient.shikimoriAPI.getAnimeList(20, "ranked", page, searchText)
             .enqueue(object : Callback<List<AnimeItem>?> {
                 override fun onResponse(
                     call: Call<List<AnimeItem>?>,
@@ -85,6 +106,34 @@ class AnimeListActivity : AppCompatActivity() {
                     list.add(LoadingItem())
 
                     animeListAdapter.removeLoading()
+                    animeListAdapter.addAnimeItem(list)
+
+                    binding.tvPages.text = "Страница 1-$page"
+                    isLoading = false
+                }
+
+                override fun onFailure(call: Call<List<AnimeItem>?>, t: Throwable) {
+                    binding.tvPages.text = t.toString()
+                    isLoading = false
+                }
+            })
+    }
+
+    fun loadNewAnimeList() {
+        isLoading = true
+        binding.rvAnimeList.smoothScrollToPosition(0)
+
+        RetrofitClient.shikimoriAPI.getAnimeList(20, "ranked", page, searchText)
+            .enqueue(object : Callback<List<AnimeItem>?> {
+                override fun onResponse(
+                    call: Call<List<AnimeItem>?>,
+                    response: Response<List<AnimeItem>?>
+                ) {
+                    var list: MutableList<AnimeMarker> = arrayListOf()
+                    list.addAll(response.body()!!)
+                    list.add(LoadingItem())
+
+                    animeListAdapter.clearList()
                     animeListAdapter.addAnimeItem(list)
 
                     binding.tvPages.text = "Страница $page"
