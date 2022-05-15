@@ -2,6 +2,7 @@ package com.example.shikimorianilist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.shikimorianilist.databinding.ActivityMainBinding
@@ -23,11 +24,22 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.buttonGenerateAnime.setOnClickListener { generateRandomAnime() }
 
         binding.bBack.setOnClickListener { onBackPressed() }
 
         generateRandomAnime()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     fun generateRandomAnime() {
