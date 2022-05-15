@@ -2,6 +2,7 @@ package com.example.shikimorianilist
 
 import android.os.Bundle
 import android.text.Html
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -28,7 +29,18 @@ class AnimeInfoActivity : AppCompatActivity() {
 
         animeId = intent.getIntExtra("animeId", 43608)
 
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         loadAnimeInfo()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     fun loadAnimeInfo() {
