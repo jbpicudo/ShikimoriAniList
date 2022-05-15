@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonGenerateAnime.setOnClickListener { generateRandomAnime() }
 
-        binding.bBack.setOnClickListener { onBackPressed() }
-
         generateRandomAnime()
     }
 
